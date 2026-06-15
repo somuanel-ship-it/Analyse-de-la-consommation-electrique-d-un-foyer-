@@ -1,0 +1,87 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 106
+        },
+        "id": "99Ef816pYZww",
+        "outputId": "e4a667eb-554e-4bd6-9a69-62df63ed4489"
+      },
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "IndentationError",
+          "evalue": "unexpected indent (1594274267.py, line 14)",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"/tmp/ipykernel_44475/1594274267.py\"\u001b[0;36m, line \u001b[0;32m14\u001b[0m\n\u001b[0;31m    df = pd.DataFrame(data)\u001b[0m\n\u001b[0m    ^\u001b[0m\n\u001b[0;31mIndentationError\u001b[0m\u001b[0;31m:\u001b[0m unexpected indent\n"
+          ]
+        }
+      ],
+      "source": [
+        "# --- ÉTAPE 1 : IMPORTER LES BIBLIOTHÈQUES ---\n",
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "\n",
+        "# --- ÉTAPE 2 : CRÉER UN DATASET SIMPLE ---\n",
+        "# Données : Mois, Température (°C), Consommation (kWh)\n",
+        "data = {\n",
+        "    \"Mois\": [1, 2, 3, 4, 5],\n",
+        "        \"Température\": [18, 20, 22, 24, 26],\n",
+        "            \"Consommation\": [500, 450, 400, 350, 300]\n",
+        "            }\n",
+        "            df = pd.DataFrame(data)\n",
+        "            print(\"Dataset :\")\n",
+        "            print(df)\n",
+        "\n",
+        "            # --- ÉTAPE 3 : AFFICHER LES STATISTIQUES ---\n",
+        "            print(\"\\nStatistiques :\")\n",
+        "            print(df.describe())\n",
+        "\n",
+        "            # --- ÉTAPE 4 : CRÉER UN GRAPHIQUE ---\n",
+        "            plt.plot(df[\"Température\"], df[\"Consommation\"], marker='o')\n",
+        "            plt.xlabel(\"Température (°C)\")\n",
+        "            plt.ylabel(\"Consommation (kWh)\")\n",
+        "            plt.title(\"Consommation vs Température\")\n",
+        "            plt.grid(True)\n",
+        "            plt.show()\n",
+        "\n",
+        "            # --- ÉTAPE 5 : RÉGRESSION LINÉAIRE ---\n",
+        "            X = df[[\"Température\"]]  # Variable explicative (température)\n",
+        "            y = df[\"Consommation\"]   # Variable à prédire (consommation)\n",
+        "\n",
+        "            model = LinearRegression()\n",
+        "            model.fit(X, y)\n",
+        "\n",
+        "            # Afficher l'équation : Consommation = a * Température + b\n",
+        "            a = model.coef_[0]\n",
+        "            b = model.intercept_\n",
+        "            print(f\"\\nÉquation de régression : Consommation = {a:.2f} * Température + {b:.2f}\")\n",
+        "\n",
+        "            # Prédire la consommation pour 21°C\n",
+        "            temp_pred = np.array([[21]])\n",
+        "            consommation_pred = model.predict(temp_pred)\n",
+        "            print(f\"Prédiction pour 21°C : {consommation_pred[0]:.2f} kWh\")"
+      ]
+    }
+  ]
+}
